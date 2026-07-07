@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Comparatif Starter / Creator — ElevenLabs</title>
+<style>
+  :root {
+    --bg: #EEE8DA;
+    --surface: #F8F4EA;
+    --surface-raised: #FFFDF7;
+    --ink: #211D18;
+    --ink-soft: #5A5346;
+    --ink-faint: #8A8271;
+    --copper: #B5602A;
+    --copper-bright: #D98A4E;
+    --signal: #4F7350;
+    --signal-soft: #E4EBDE;
+    --line: rgba(33, 29, 24, 0.14);
+    --line-strong: rgba(33, 29, 24, 0.26);
+    --shadow: 0 1px 2px rgba(33,29,24,0.06), 0 8px 24px -12px rgba(33,29,24,0.18);
+
+    --font-display: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-body: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17140F;
+      --surface: #201B14;
+      --surface-raised: #262019;
+      --ink: #F3EEE2;
+      --ink-soft: #BDB39D;
+      --ink-faint: #837A67;
+      --copper: #E08B4F;
+      --copper-bright: #F2A968;
+      --signal: #8FB08D;
+      --signal-soft: #26301F;
+      --line: rgba(243, 238, 226, 0.14);
+      --line-strong: rgba(243, 238, 226, 0.26);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140F; --surface: #201B14; --surface-raised: #262019;
+    --ink: #F3EEE2; --ink-soft: #BDB39D; --ink-faint: #837A67;
+    --copper: #E08B4F; --copper-bright: #F2A968; --signal: #8FB08D; --signal-soft: #26301F;
+    --line: rgba(243, 238, 226, 0.14); --line-strong: rgba(243, 238, 226, 0.26);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+  :root[data-theme="light"] {
+    --bg: #EEE8DA; --surface: #F8F4EA; --surface-raised: #FFFDF7;
+    --ink: #211D18; --ink-soft: #5A5346; --ink-faint: #8A8271;
+    --copper: #B5602A; --copper-bright: #D98A4E; --signal: #4F7350; --signal-soft: #E4EBDE;
+    --line: rgba(33, 29, 24, 0.14); --line-strong: rgba(33, 29, 24, 0.26);
+    --shadow: 0 1px 2px rgba(33,29,24,0.06), 0 8px 24px -12px rgba(33,29,24,0.18);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--copper); color: var(--surface-raised); }
+  a { color: var(--copper); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 3rem clamp(1.25rem, 4vw, 4rem) 6rem;
+  }
+
+  header.top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.02em; }
+  .brand span { color: var(--copper); }
+  .brand-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); letter-spacing: 0.04em; }
+
+  .nav-tabs { display: flex; gap: 0.4rem; margin-bottom: 2.75rem; }
+  .nav-tabs a {
+    font-family: var(--font-mono); font-size: 0.75rem; text-decoration: none;
+    padding: 0.5rem 0.9rem; border-radius: 100px; border: 1px solid var(--line); color: var(--ink-soft);
+  }
+  .nav-tabs a.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .hero { max-width: 74ch; margin-bottom: 3rem; }
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--copper); margin: 0 0 0.9rem;
+  }
+  h1 {
+    font-family: var(--font-display); font-weight: 800;
+    font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1.1;
+    letter-spacing: -0.01em; margin: 0 0 0.9rem; text-wrap: balance;
+  }
+  .lede { font-size: 1.05rem; color: var(--ink-soft); margin: 0; }
+
+  /* ---------- Headroom bars ---------- */
+
+  .headroom-block {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    padding: 1.75rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .headroom-block h2 { margin: 0 0 1.4rem; }
+
+  .bars { display: flex; flex-direction: column; gap: 1.1rem; }
+  .bar-set { display: flex; flex-direction: column; gap: 0.5rem; }
+  .bar-set-label {
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .bar-row { display: flex; align-items: center; gap: 1rem; }
+  .bar-tag { width: 90px; flex: none; font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+  .bar-track { flex: 1; height: 26px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; display: flex; align-items: center; border-radius: 5px 0 0 5px; }
+  .bar-fill.starter-credits { width: 24.8%; background: var(--ink-faint); }
+  .bar-fill.creator-credits { width: 100%; background: var(--copper); }
+  .bar-fill.starter-studio { width: 2%; background: var(--ink-faint); }
+  .bar-fill.creator-studio { width: 100%; background: var(--copper); }
+  .bar-value {
+    font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
+    color: var(--surface-raised); padding-left: 0.6rem; white-space: nowrap;
+  }
+
+  /* ---------- Full-width comparison grid ---------- */
+
+  section.compare-section { margin-bottom: 3.5rem; }
+  .section-head { margin-bottom: 1.5rem; }
+  h2 { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; letter-spacing: -0.005em; margin: 0 0 0.4rem; }
+  .section-note { color: var(--ink-soft); font-size: 0.97rem; margin: 0; max-width: 70ch; }
+
+  .compare-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: minmax(200px, 1.1fr) minmax(260px, 1.6fr) minmax(260px, 1.6fr);
+    min-width: 780px;
+    background: var(--line);
+    gap: 1px;
+  }
+
+  .compare-grid > div { background: var(--surface); padding: 1rem 1.4rem; display: flex; flex-direction: column; justify-content: center; }
+
+  .compare-grid .head {
+    background: var(--surface-raised);
+    padding: 1.1rem 1.4rem;
+    position: sticky;
+    top: 0;
+  }
+  .compare-grid .head .plan-name {
+    font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
+  }
+  .compare-grid .head .plan-price {
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); margin-top: 0.2rem;
+  }
+  .compare-grid .head.current .plan-name { color: var(--copper); }
+  .compare-grid .head.highlight { background: var(--signal-soft); }
+  .compare-grid .head.highlight .plan-name { color: var(--signal); }
+
+  .compare-grid .criterion {
+    font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink-soft);
+  }
+
+  .compare-grid .val { font-size: 0.98rem; }
+  .compare-grid .val b { color: var(--ink); }
+  .compare-grid .val.win { color: var(--copper); font-weight: 700; }
+  .compare-grid .val .delta {
+    display: inline-block; font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--signal); background: var(--signal-soft); border-radius: 100px;
+    padding: 0.1rem 0.5rem; margin-left: 0.5rem; vertical-align: middle;
+  }
+
+  .compare-grid > div:nth-child(6n+1),
+  .compare-grid > div:nth-child(6n+2),
+  .compare-grid > div:nth-child(6n+3) { background: var(--surface-raised); }
+
+  /* ---------- Included checklist ---------- */
+
+  .included-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0.6rem;
+  }
+  .included-item {
+    display: flex; align-items: flex-start; gap: 0.65rem;
+    padding: 0.75rem 0.9rem; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 8px; font-size: 0.92rem;
+  }
+  .check-mark {
+    flex: none; width: 18px; height: 18px; border-radius: 5px;
+    background: var(--signal); color: var(--surface-raised);
+    display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;
+  }
+  .check-mark svg { width: 11px; height: 11px; }
+
+  /* ---------- Recommendation ---------- */
+
+  .verdict-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  @media (max-width: 760px) { .verdict-cols { grid-template-columns: 1fr; } }
+
+  .verdict-col { background: var(--surface); padding: 1.75rem; }
+  .verdict-col.stay { border-top: 3px solid var(--ink-faint); }
+  .verdict-col.go { border-top: 3px solid var(--copper); background: var(--surface-raised); }
+  .verdict-col h3 { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; margin: 0 0 0.9rem; }
+  .verdict-col.go h3 { color: var(--copper); }
+  .verdict-col ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .verdict-col li { font-size: 0.93rem; color: var(--ink-soft); padding-left: 0.95rem; position: relative; }
+  .verdict-col li::before {
+    content: ""; position: absolute; left: 0; top: 0.6em; width: 4px; height: 4px; border-radius: 50%;
+  }
+  .verdict-col.stay li::before { background: var(--ink-faint); }
+  .verdict-col.go li::before { background: var(--copper); }
+
+  .disclaimer {
+    font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint);
+    margin-top: 1.25rem; line-height: 1.6; max-width: 80ch;
+  }
+
+  footer {
+    margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint);
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brand">eleven<span>labs</span> — carnet perso</div>
+      <div class="brand-sub">comparatif d'abonnements</div>
+    </div>
+    <div class="brand-sub">07 / 2026</div>
+  </header>
+
+  <nav class="nav-tabs">
+    <a href="index.html">Mon abonnement</a>
+    <a href="comparatif.html" class="active">Comparatif Starter / Creator</a>
+  </nav>
+
+  <div class="hero">
+    <p class="eyebrow">Comparatif complet</p>
+    <h1>Starter contre Creator, ligne par ligne</h1>
+    <p class="lede">Tu es sur Starter (5&nbsp;$/mois). Le palier au-dessus, Creator (22&nbsp;$/mois), multiplie surtout deux choses&nbsp;: les crédits et les projets Studio. Voici l'écart réel entre les deux, sans arrondir dans le bon sens.</p>
+  </div>
+
+  <div class="headroom-block">
+    <h2>La marge, en un coup d'œil</h2>
+    <div class="bars">
+      <div class="bar-set">
+        <span class="bar-set-label">Crédits mensuels</span>
+        <div class="bar-row">
+          <span class="bar-tag">Starter</span>
+          <div class="bar-track"><div class="bar-fill starter-credits"><span class="bar-value">30 000</span></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-tag">Creator</span>
+          <div class="bar-track"><div class="bar-fill creator-credits"><span class="bar-value">121 000</span></div></div>
+        </div>
+      </div>
+      <div class="bar-set">
+        <span class="bar-set-label">Projets Studio</span>
+        <div class="bar-row">
+          <span class="bar-tag">Starter</span>
+          <div class="bar-track"><div class="bar-fill starter-studio"><span class="bar-value">20</span></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-tag">Creator</span>
+          <div class="bar-track"><div class="bar-fill creator-studio"><span class="bar-value">1 000</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="compare-section">
+    <div class="section-head">
+      <h2>Tableau comparatif</h2>
+      <p class="section-note">Toutes les différences entre les deux forfaits, poste par poste.</p>
+    </div>
+
+    <div class="compare-scroll">
+      <div class="compare-grid">
+        <div class="head"><div class="plan-name">Critère</div></div>
+        <div class="head current"><div class="plan-name">Starter</div><div class="plan-price">5&nbsp;$ / mois — actuel</div></div>
+        <div class="head highlight"><div class="plan-name">Creator</div><div class="plan-price">22&nbsp;$ / mois</div></div>
+
+        <div class="criterion">Crédits mensuels</div>
+        <div class="val"><b>30 000</b></div>
+        <div class="val win">121 000 <span class="delta">×4</span></div>
+
+        <div class="criterion">Projets Studio</div>
+        <div class="val"><b>20</b></div>
+        <div class="val win">1 000 <span class="delta">×50</span></div>
+
+        <div class="criterion">Clonage vocal</div>
+        <div class="val"><b>Instantané</b></div>
+        <div class="val win">Instantané + professionnel</div>
+
+        <div class="criterion">Qualité audio</div>
+        <div class="val"><b>Standard</b></div>
+        <div class="val win">192 kbps</div>
+
+        <div class="criterion">Au-delà du quota</div>
+        <div class="val"><b>Attendre le renouvellement</b></div>
+        <div class="val win">Pay as you go</div>
+
+        <div class="criterion">Doublage &amp; traduction</div>
+        <div class="val"><b>Inclus</b></div>
+        <div class="val win">Inclus, minutes élargies</div>
+
+        <div class="criterion">Bibliothèque de voix</div>
+        <div class="val"><b>Incluse</b></div>
+        <div class="val">Incluse</div>
+
+        <div class="criterion">Musique IA</div>
+        <div class="val"><b>Incluse</b></div>
+        <div class="val">Incluse</div>
+
+        <div class="criterion">API</div>
+        <div class="val"><b>Incluse</b></div>
+        <div class="val">Incluse</div>
+
+        <div class="criterion">Licence commerciale</div>
+        <div class="val"><b>Incluse</b></div>
+        <div class="val">Incluse</div>
+      </div>
+    </div>
+
+    <p class="disclaimer">Chiffres donnés à titre indicatif — ElevenLabs ajuste ses paliers régulièrement. Vérifie les montants exacts sur ta page de facturation avant de trancher.</p>
+  </section>
+
+  <section class="compare-section">
+    <div class="section-head">
+      <h2>Ce qui ne change pas</h2>
+      <p class="section-note">Rien ne disparaît en passant à Creator&nbsp;: tout ce qui suit reste inclus, en plus large.</p>
+    </div>
+    <div class="included-grid">
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Text-to-speech réglable</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Clonage instantané de voix</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Doublage IA multilingue</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Bibliothèque de voix</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Agents vocaux conversationnels</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>API (JS, Python, PHP…)</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Musique &amp; sons IA</div>
+      <div class="included-item"><span class="check-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Licence commerciale</div>
+    </div>
+  </section>
+
+  <section class="compare-section">
+    <div class="section-head">
+      <h2>Alors, tu restes ou tu passes&nbsp;?</h2>
+    </div>
+    <div class="verdict-cols">
+      <div class="verdict-col stay">
+        <h3>Reste sur Starter si…</h3>
+        <ul>
+          <li>Tu n'atteins pas régulièrement tes 30 000 crédits</li>
+          <li>Le clonage instantané suffit pour tes usages actuels</li>
+          <li>Tu produis surtout pour toi ou des projets internes</li>
+        </ul>
+      </div>
+      <div class="verdict-col go">
+        <h3>Passe à Creator si…</h3>
+        <ul>
+          <li>Tu dépasses ton quota plusieurs mois de suite</li>
+          <li>Tu factures du doublage multilingue régulièrement</li>
+          <li>Un client exigeant a besoin d'un clonage vocal quasi indiscernable de l'original</li>
+          <li>La qualité audio devient un critère (formations vendues, pubs, e-learning premium)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Guide personnel — usage ElevenLabs</span>
+    <span><a href="index.html">← Retour à mon abonnement</a></span>
+  </footer>
+
+</div>
+</body>
+</html>
