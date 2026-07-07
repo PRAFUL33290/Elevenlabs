@@ -93,10 +93,13 @@
   a:focus-visible, button:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
 
   .wrap {
-    max-width: 760px;
+    width: 100%;
+    max-width: 1680px;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem 6rem;
+    padding: 3.5rem clamp(1.25rem, 4vw, 4rem) 6rem;
   }
+
+  .hero { max-width: 74ch; margin-bottom: 0.5rem; }
 
   /* ---------- Header ---------- */
 
@@ -177,6 +180,7 @@
   .plan-strip {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    max-width: 640px;
     border: 1px solid var(--line);
     border-radius: 10px;
     overflow: hidden;
@@ -244,16 +248,12 @@
 
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1px;
     background: var(--line);
     border: 1px solid var(--line);
     border-radius: 10px;
     overflow: hidden;
-  }
-
-  @media (max-width: 620px) {
-    .grid { grid-template-columns: 1fr; }
   }
 
   .card {
@@ -320,10 +320,9 @@
 
   .checklist {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 0.6rem;
   }
-  @media (max-width: 620px) { .checklist { grid-template-columns: 1fr; } }
 
   .check-item {
     display: flex;
@@ -354,6 +353,7 @@
 
   .verdict {
     margin-top: 3.5rem;
+    max-width: 820px;
     padding: 1.75rem;
     border: 1px solid var(--line-strong);
     border-radius: 10px;
@@ -421,9 +421,11 @@
     <a href="comparatif.html">Comparatif Starter / Creator</a>
   </nav>
 
-  <p class="eyebrow">Guide personnel</p>
-  <h1>Ce que ton abonnement Starter sait déjà faire</h1>
-  <p class="lede">Tu es sur le forfait <b>Starter</b>, 5&nbsp;$/mois, 30&nbsp;000 crédits mensuels. C'est peu cher, mais ça ouvre déjà la majorité des outils d'ElevenLabs. Voici le tour complet de ce que tu peux produire avec, dès aujourd'hui.</p>
+  <div class="hero">
+    <p class="eyebrow">Guide personnel</p>
+    <h1>Ce que ton abonnement Starter sait déjà faire</h1>
+    <p class="lede">Tu es sur le forfait <b>Starter</b>, 5&nbsp;$/mois, 30&nbsp;000 crédits mensuels. C'est peu cher, mais ça ouvre déjà la majorité des outils d'ElevenLabs. Voici le tour complet de ce que tu peux produire avec, dès aujourd'hui.</p>
+  </div>
 
   <div class="plan-strip">
     <div class="plan-cell">
