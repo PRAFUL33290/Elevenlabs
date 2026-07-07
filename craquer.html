@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pourquoi tu pourrais craquer sur Creator</title>
+<style>
+  :root {
+    --void: #0E0C08;
+    --panel: #191409;
+    --panel-raised: #221B0F;
+    --line: rgba(245, 239, 225, 0.10);
+    --line-strong: rgba(245, 239, 225, 0.20);
+    --ink: #F5EFE1;
+    --ink-muted: #B4A88E;
+    --ink-faint: #7C7360;
+    --gold: #E7A544;
+    --gold-hot: #F5C877;
+    --gold-dim: #8A6423;
+    --ember: #C2593B;
+
+    --font-display: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+    --font-body: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--void);
+    background-image: radial-gradient(ellipse 800px 480px at 20% -8%, rgba(231, 165, 68, 0.12), transparent);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--gold); color: var(--void); }
+  a { color: var(--gold-hot); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+  header.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-muted);
+  }
+  .brand span { color: var(--gold); }
+  .brand-sub { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); }
+
+  .nav-tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 3.5rem; }
+  .nav-tabs a {
+    font-family: var(--font-mono); font-size: 0.75rem; text-decoration: none;
+    padding: 0.5rem 0.9rem; border-radius: 100px; border: 1px solid var(--line-strong); color: var(--ink-muted);
+  }
+  .nav-tabs a.active { background: var(--gold); color: var(--void); border-color: var(--gold); font-weight: 600; }
+
+  /* ---------- Hero ---------- */
+
+  .hero { margin-bottom: 4rem; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ember);
+    margin: 0 0 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ember);
+    animation: blink 1.8s ease-in-out infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 5.5vw, 2.9rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.3rem;
+    text-wrap: balance;
+    max-width: 17ch;
+  }
+  h1 .gold {
+    background: linear-gradient(100deg, var(--gold-hot), var(--gold) 60%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero .sub {
+    font-size: 1.08rem;
+    color: var(--ink-muted);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  /* ---------- Sections ---------- */
+
+  section { margin-top: 4rem; }
+
+  .section-head { margin-bottom: 1.6rem; }
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.45rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+  }
+  .section-note { color: var(--ink-muted); font-size: 0.96rem; margin: 0; max-width: 58ch; }
+
+  /* ---------- Trigger moments ---------- */
+
+  .triggers {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .trigger {
+    background: var(--panel);
+    padding: 1.4rem 1.6rem;
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+  }
+
+  .trigger-mark {
+    flex: none;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ember);
+    margin-top: 0.55rem;
+  }
+
+  .trigger-body p.moment {
+    margin: 0 0 0.4rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+  .trigger-body p.detail { margin: 0 0 0.6rem; color: var(--ink-muted); font-size: 0.93rem; }
+  .trigger-body .relief {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--gold-hot);
+    background: rgba(231, 165, 68, 0.1);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    padding: 0.28rem 0.7rem;
+  }
+
+  /* ---------- Desire grid ---------- */
+
+  .desire-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  @media (max-width: 620px) { .desire-grid { grid-template-columns: 1fr; } }
+
+  .desire {
+    background: var(--panel);
+    padding: 1.5rem 1.5rem;
+  }
+  .desire .stat {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gold-hot);
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .desire p { margin: 0; font-size: 0.95rem; color: var(--ink); font-family: var(--font-display); font-weight: 600; }
+  .desire p.sub2 { margin-top: 0.35rem; font-family: var(--font-body); font-weight: 400; color: var(--ink-muted); font-size: 0.88rem; }
+
+  /* ---------- The math ---------- */
+
+  .math-frame {
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: linear-gradient(180deg, var(--panel-raised), var(--panel));
+    padding: 2rem;
+  }
+
+  .math-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+  }
+  .math-row:last-of-type { border-bottom: none; }
+  .math-row .k { color: var(--ink-muted); }
+  .math-row .v { color: var(--ink); font-weight: 600; }
+  .math-row.total .v { color: var(--gold-hot); font-size: 1.1rem; }
+
+  .math-frame p.note { margin: 1.4rem 0 0; font-size: 0.95rem; color: var(--ink-muted); }
+  .math-frame p.note b { color: var(--gold-hot); }
+
+  /* ---------- Reality check ---------- */
+
+  .reality {
+    margin-top: 4.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 2rem;
+    background: var(--panel);
+  }
+  .reality .eyebrow { color: var(--gold); }
+  .reality .eyebrow::before { background: var(--gold); animation: none; }
+  .reality p { margin: 0 0 1rem; font-size: 0.98rem; }
+  .reality p:last-child { margin-bottom: 0; }
+  .reality .links { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.3rem; }
+  .reality .links a {
+    font-family: var(--font-mono); font-size: 0.8rem; text-decoration: none;
+    border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.5rem 0.95rem;
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brand">eleven<span>labs</span> — carnet perso</div>
+      <div class="brand-sub">instant de faiblesse assumé</div>
+    </div>
+    <div class="brand-sub">07 / 2026</div>
+  </header>
+
+  <nav class="nav-tabs">
+    <a href="index.html">Mon abonnement</a>
+    <a href="comparatif.html">Comparatif Starter / Creator</a>
+    <a href="craquer.html" class="active">Pourquoi craquer</a>
+  </nav>
+
+  <div class="hero">
+    <p class="eyebrow">Confession</p>
+    <h1>Pourquoi tu pourrais <span class="gold">craquer</span> sur Creator</h1>
+    <p class="sub">22&nbsp;$/mois, ce n'est pas cher — mais ce n'est pas gratuit non plus. Voici, honnêtement, ce qui te donnerait envie de sortir la carte plutôt que d'attendre.</p>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h2>Les moments où l'envie monte</h2>
+      <p class="section-note">Pas des arguments abstraits — des situations précises où Starter commence à te freiner.</p>
+    </div>
+
+    <div class="triggers">
+
+      <div class="trigger">
+        <span class="trigger-mark"></span>
+        <div class="trigger-body">
+          <p class="moment">Tu es à 27 000 crédits un 18 du mois.</p>
+          <p class="detail">Le projet n'est pas fini, mais chaque génération te rapproche du mur. Tu commences à peser tes essais au lieu de créer.</p>
+          <span class="relief">→ réglé par 121 000 crédits</span>
+        </div>
+      </div>
+
+      <div class="trigger">
+        <span class="trigger-mark"></span>
+        <div class="trigger-body">
+          <p class="moment">Un client veut une voix "indiscernable" d'une vraie prise studio.</p>
+          <p class="detail">Le clonage instantané fait très bien le travail — jusqu'à ce que quelqu'un d'exigeant écoute de près.</p>
+          <span class="relief">→ réglé par le clonage professionnel</span>
+        </div>
+      </div>
+
+      <div class="trigger">
+        <span class="trigger-mark"></span>
+        <div class="trigger-body">
+          <p class="moment">Tu ouvres un dixième projet Studio le même mois.</p>
+          <p class="detail">Formation, livre audio, contenu client — et tu réalises que tu es à deux doigts du plafond des 20.</p>
+          <span class="relief">→ réglé par 1 000 projets Studio</span>
+        </div>
+      </div>
+
+      <div class="trigger">
+        <span class="trigger-mark"></span>
+        <div class="trigger-body">
+          <p class="moment">Tu réécoutes ton rendu au casque avant de l'envoyer.</p>
+          <p class="detail">Et tu entends ce petit grain de compression que le client entendra aussi.</p>
+          <span class="relief">→ réglé par le 192 kbps</span>
+        </div>
+      </div>
+
+      <div class="trigger">
+        <span class="trigger-mark"></span>
+        <div class="trigger-body">
+          <p class="moment">Tu dois doubler une vidéo en quatre langues, la même semaine.</p>
+          <p class="detail">Et le compteur de crédits tombe à zéro le mardi.</p>
+          <span class="relief">→ réglé par Pay as you go</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Ce qui fait vraiment envie</h2>
+      <p class="section-note">Pas la liste des specs — ce que chaque déblocage change dans ta manière de travailler.</p>
+    </div>
+
+    <div class="desire-grid">
+      <div class="desire">
+        <div class="stat">121 000 crédits</div>
+        <p>Ne plus calculer avant de cliquer sur générer.</p>
+        <p class="sub2">Quatre fois la marge actuelle.</p>
+      </div>
+      <div class="desire">
+        <div class="stat">1 000 projets Studio</div>
+        <p>Ne plus faire le tri entre tes projets en cours.</p>
+        <p class="sub2">Contre 20 aujourd'hui.</p>
+      </div>
+      <div class="desire">
+        <div class="stat">Clonage professionnel</div>
+        <p>Une voix qui passe la barre du "ça sonne vrai".</p>
+        <p class="sub2">Le niveau qu'on montre à un client.</p>
+      </div>
+      <div class="desire">
+        <div class="stat">192 kbps</div>
+        <p>Un rendu qui tient la comparaison au casque.</p>
+        <p class="sub2">Celui qui ne sonne plus "généré".</p>
+      </div>
+      <div class="desire">
+        <div class="stat">Pay as you go</div>
+        <p>Ne plus être coincé par un compteur à zéro.</p>
+        <p class="sub2">Le mur devient une option, pas une fatalité.</p>
+      </div>
+      <div class="desire">
+        <div class="stat">Tout Starter, inclus</div>
+        <p>Rien ne disparaît — tout reste, en plus large.</p>
+        <p class="sub2">Zéro compromis sur ce que tu utilises déjà.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>Le calcul qui fait basculer</h2>
+    </div>
+
+    <div class="math-frame">
+      <div class="math-row"><span class="k">Starter</span><span class="v">5,00&nbsp;$ / mois</span></div>
+      <div class="math-row"><span class="k">Creator</span><span class="v">22,00&nbsp;$ / mois</span></div>
+      <div class="math-row total"><span class="k">Différence</span><span class="v">17,00&nbsp;$ / mois — soit ≈ 0,56&nbsp;$ / jour</span></div>
+      <p class="note">Moins qu'un café, pour quatre fois plus de crédits, cinquante fois plus de projets Studio et un rendu qui tient la route chez un client. <b>Une seule formation vendue avec un audio nickel rembourse largement la différence sur l'année.</b></p>
+    </div>
+  </section>
+
+  <div class="reality">
+    <p class="eyebrow">Le vrai test</p>
+    <p>Si l'une de ces situations t'est déjà arrivée <b>ce mois-ci</b> — pas "un jour", ce mois-ci — l'envie est légitime, pas juste un caprice.</p>
+    <p>Si aucune ne t'est arrivée depuis un moment, rien ne presse. Reste sur Starter et regarde le comparatif froid le jour où le doute revient.</p>
+    <div class="links">
+      <a href="comparatif.html">Voir le comparatif factuel →</a>
+      <a href="index.html">Revoir mon abonnement actuel →</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Guide personnel — usage ElevenLabs</span>
+    <span>Chiffres à vérifier sur ton tableau de bord</span>
+  </footer>
+
+</div>
+</body>
+</html>
