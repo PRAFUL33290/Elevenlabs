@@ -375,6 +375,24 @@ section { margin-top: 3.75rem; }
 }
 .card li b { color: var(--ink); font-weight: 600; }
 
+/* ---------- Badge ---------- */
+
+.badge-new {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--surface-raised);
+  background: var(--copper);
+  border-radius: 100px;
+  padding: 0.18rem 0.55rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 /* ---------- Checklist ---------- */
 
 .checklist {
